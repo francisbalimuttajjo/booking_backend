@@ -30,6 +30,36 @@ module.exports = {
           notEmpty: { args: true, msg: "price discount is required" },
         },
       },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: { args: true, msg: "description is required" },
+        },
+      },
+      mainImage: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: { args: true, msg: "mainimage is required" },
+        },
+      },
+      services: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
+        get() {
+          return this.getDataValue("services");
+        },
+      },
+      contacts: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
+        get() {
+          return this.getDataValue("contacts");
+        },
+      },
 
       slug: {
         type: DataTypes.STRING,
