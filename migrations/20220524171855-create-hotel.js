@@ -16,6 +16,20 @@ module.exports = {
           notEmpty: { args: true, msg: "name is required" },
         },
       },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: { args: true, msg: "price is required" },
+        },
+      },
+      priceDiscount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: { args: true, msg: "price discount is required" },
+        },
+      },
 
       slug: {
         type: DataTypes.STRING,
