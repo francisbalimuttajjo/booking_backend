@@ -6,7 +6,13 @@ const { createOtherError } = require("../utils/utils");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate(models) {}
+    static associate(models) {
+      this.hasMany(models.Review, {
+        foreignKey: "user",
+        as: "reviews",
+        sourceKey: "email",
+      });
+    }
     toJSON() {
       return {
         ...this.get(),
@@ -84,7 +90,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.beforeCreate((user) => {
-    console.log(user);
     if (user.password !== user.passwordConfirm) {
       let err = createOtherError("passwords must be the same");
 

@@ -6,6 +6,7 @@ exports.createUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password, passwordConfirm, photo } =
       req.body;
+
     const user = await db.User.create({
       firstName,
       lastName,
@@ -16,6 +17,7 @@ exports.createUser = async (req, res) => {
     });
     sendResponse(req, res, 201, user);
   } catch (error) {
+    console.log(error);
     return errorHandler(req, res, error, "User");
   }
 };

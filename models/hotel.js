@@ -5,7 +5,12 @@ const { createOtherError } = require("../utils/utils");
 
 module.exports = (sequelize, DataTypes) => {
   class Hotel extends Model {
-    static associate(models) {}
+    static associate(models) {
+      this.hasMany(models.Review, {
+        foreignKey: "hotel_id",
+        as: "reviews",
+      });
+    }
     toJSON() {
       return {
         ...this.get(),
