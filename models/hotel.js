@@ -61,6 +61,14 @@ module.exports = (sequelize, DataTypes) => {
           return this.getDataValue("contacts");
         },
       },
+      location: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
+        get() {
+          return this.getDataValue("location");
+        },
+      },
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,

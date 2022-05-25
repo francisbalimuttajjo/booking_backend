@@ -12,18 +12,12 @@ const createOtherError = (message, name) => {
   return err;
 };
 
-const errorHandler = (req, res, error, model) => {
-  if (error.name === "SequelizeUniqueConstraintError") {
-    return sendResponse(req, res, 403, `${model}  already exists`, "fail");
-  } else if (error.name === "SequelizeValidationError") {
-    const err = error.errors[0].message.split(".").join(" ");
-
-    return sendResponse(req, res, 400, err, "fail");
-  } else if (error.name === "otherError") {
-    return sendResponse(req, res, 400, error.info.message, "fail");
-  } else {
-    return sendResponse(req, res, 500, "Something went wrong", "fail");
-  }
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
 };
 
-module.exports = { sendResponse, errorHandler, createOtherError };
+module.exports = { sendResponse, createOtherError, filterObj };

@@ -60,6 +60,14 @@ module.exports = {
           return this.getDataValue("contacts");
         },
       },
+      location: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: true,
+        defaultValue: [],
+        get() {
+          return this.getDataValue("location");
+        },
+      },
 
       slug: {
         type: DataTypes.STRING,
