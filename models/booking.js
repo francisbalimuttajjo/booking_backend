@@ -3,7 +3,22 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
     static associate(models) {
-      // define association here
+      this.belongsTo(models.User, {
+        foreignKey: "user",
+        as: "booking_owner",
+        targetKey: "email",
+      });
+      this.belongsTo(models.Hotel, {
+        foreignKey: "hotel_id",
+        as: "hotel",
+      });
+    }
+    toJSON() {
+      return {
+        ...this.get(),
+        createdAt: undefined,
+        updatedAt: undefined,
+      };
     }
   }
   Booking.init(

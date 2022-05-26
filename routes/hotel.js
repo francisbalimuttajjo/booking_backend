@@ -8,4 +8,5 @@ router.use("/hotels/:hotelId/reviews", reviewRouter);
 router.use("/hotels/:hotelId/booking", bookingRouter);
 
 router.route("/hotels").post(hotelController.createHotel);
+router.route("/hotels/:id").get(hotelController.getHotel);
 module.exports = router;

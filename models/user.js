@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "reviews",
         sourceKey: "email",
       });
+      this.hasMany(models.Booking, {
+        foreignKey: "user",
+        as: "bookings",
+        sourceKey: "email",
+      });
     }
     toJSON() {
       return {

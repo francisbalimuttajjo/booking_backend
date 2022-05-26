@@ -17,7 +17,23 @@ exports.createUser = async (req, res) => {
     });
     sendResponse(req, res, 201, user);
   } catch (error) {
-    console.log(error);
+    return errorHandler(req, res, error, "User");
+  }
+};
+
+exports.getUser = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await db.User.findOne({
+      where: { email },
+      include: [
+        { model: db.Review, as: "reviews" },
+        { model: db.Booking, as: "bookings" },
+      ],
+    });
+    sendResponse(req, res, 201, user);
+  } catch (error) {
     return errorHandler(req, res, error, "User");
   }
 };

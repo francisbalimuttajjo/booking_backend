@@ -16,7 +16,7 @@ exports.createBooking = async (req, res) => {
     });
     sendResponse(req, res, 201, booking);
   } catch (error) {
-    console.log(error);
+  
     return errorHandler(req, res, error, "Booking");
   }
 };

@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "hotel_id",
         as: "reviews",
       });
+      this.hasMany(models.Booking, {
+        foreignKey: "hotel_id",
+        as: "bookings",
+      });
     }
     toJSON() {
       return {

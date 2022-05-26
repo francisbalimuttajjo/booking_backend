@@ -16,16 +16,23 @@ exports.createReview = async (req, res) => {
         req,
         res,
         403,
-        "You can only review an hotel you booked"
+        "You can only review an hotel you booked",
+        "fail"
       );
     }
 
-    //avoiding duplicate Reviews
+    //avoiding duplicate Reviews for a single user and same hotel
     const available_review = await db.Review.findAll({
       where: { user, hotel_id },
     });
     if (available_review.length) {
-      return sendResponse(req, res, 403, "You can only review an hotel once");
+      return sendResponse(
+        req,
+        res,
+        403,
+        "You can only review an hotel once",
+        "fail"
+      );
     }
 
     const new_review = await db.Review.create({
@@ -51,7 +58,6 @@ exports.getReviews = async (req, res) => {
     });
     sendResponse(req, res, 201, reviews);
   } catch (error) {
-    console.log(error);
     return errorHandler(req, res, error, "Review");
   }
 };
