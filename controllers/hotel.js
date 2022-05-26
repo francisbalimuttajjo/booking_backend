@@ -1,6 +1,22 @@
 const db = require("../models");
 const { sendResponse, filterObj } = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
+const { getSearchQuery } = require("../utils/query");
+
+exports.getAllHotels = async (req, res) => {
+  try {
+    const { Query, limit, page } = getSearchQuery(req.query);
+    const hotels = await db.Hotel.findAndCountAll({
+      limit,
+      offset: page * limit,
+      where: Query,
+    });
+
+    sendResponse(req, res, 200, hotels);
+  } catch (err) {
+    return errorHandler(req, res, err, "Hotel");
+  }
+};
 
 exports.createHotel = async (req, res) => {
   try {
@@ -33,16 +49,15 @@ exports.getHotel = async (req, res) => {
       ],
     });
     //adding avg ratings and number of ratings
-    let stats = await db.Review.findAll({
+    let stats = await db.Review.findAndCountAll({
       where: { hotel_id: req.params.id },
       attributes: [
-        [db.sequelize.fn("COUNT", db.sequelize.col("rating")), "ratingsNumber"],
         [db.sequelize.fn("AVG", db.sequelize.col("rating")), "averageRating"],
       ],
     });
 
-    const averageRating = parseInt(stats[0].dataValues.averageRating);
-    const noOfRatings = parseInt(stats[0].dataValues.ratingsNumber);
+    const averageRating = stats.count;
+    const noOfRatings = parseInt(stats.rows[0].dataValues.averageRating);
 
     sendResponse(req, res, 200, {
       averageRating,
