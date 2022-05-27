@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
           return this.getDataValue("location");
         },
       },
-      
+
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,

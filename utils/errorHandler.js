@@ -7,6 +7,11 @@ const errorHandler = (req, res, error, model) => {
     const err = error.errors[0].message.split(".").join(" ");
 
     return sendResponse(req, res, 400, err, "fail");
+  }
+  //invalid id type
+  else if (error.name === "SequelizeDatabaseError") {
+    console.log(error);
+    return sendResponse(req, res, 400, "invalid id provided", "fail");
   } else if (error.name === "otherError") {
     return sendResponse(req, res, 400, error.info.message, "fail");
   } else {
