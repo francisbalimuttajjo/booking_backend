@@ -1,10 +1,32 @@
 const db = require("../models");
-const { sendResponse, filterObj } = require("../utils/utils");
+const {
+  sendResponse,
+  filterObj,
+  getTopRated5Hotels,
+} = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
 const { getSearchQuery } = require("../utils/query");
 
 //sorting hotels by high ratings
 //getting first five highly rated hotels
+exports.getTopRatedHotels = async (req, res) => {
+  try {
+    const topHotels = await db.Hotel.findAll({
+      include: [
+        {
+          model: db.Review,
+          as: "reviews",
+          required: true,
+        },
+      ],
+    });
+    const data = getTopRated5Hotels(topHotels);
+
+    sendResponse(req, res, 200, data.slice(0, 5));
+  } catch (err) {
+    return errorHandler(req, res, err, "Hotel");
+  }
+};
 
 exports.deleteHotel = async (req, res) => {
   let transaction;
@@ -75,6 +97,8 @@ exports.getAllHotels = async (req, res) => {
       limit,
       offset: page * limit,
       where: Query,
+      // order: [["price", "DESC"]],
+      order: [["price", "ASC"]],
     });
 
     sendResponse(req, res, 200, hotels);
@@ -123,7 +147,7 @@ exports.getHotel = async (req, res) => {
 
     const noOfRatings = stats.count;
     const averageRating =
-      stats.count < 1 ? 0 : parseInt(stats.rows[0].dataValues.averageRating);
+      stats.count < 1 ? 5 : parseInt(stats.rows[0].dataValues.averageRating);
 
     sendResponse(req, res, 200, {
       averageRating,
@@ -131,7 +155,6 @@ exports.getHotel = async (req, res) => {
       hotel,
     });
   } catch (error) {
-    console.log(error);
     return errorHandler(req, res, error, "Hotel");
   }
 };

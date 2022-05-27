@@ -7,6 +7,8 @@ const router = express.Router();
 router.use("/hotels/:hotelId/reviews", reviewRouter);
 router.use("/hotels/:hotelId/booking", bookingRouter);
 
+router.route("/hotels/top-rated").get(hotelController.getTopRatedHotels);
+
 router
   .route("/hotels")
   .post(hotelController.createHotel)

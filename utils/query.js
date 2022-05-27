@@ -8,7 +8,7 @@ exports.getSearchQuery = (query) => {
   if (query.slug) Query.slug = { [Op.like]: `%${query.slug}%` };
   if (query.price) Query.price = parseInt(query.price);
   Query.page = query.page ? query.page : 0;
-  Query.limit = query.limit ? query.limit : 4;
+  Query.limit = query.limit ? query.limit : 12;
   const limit = Query.limit;
   const page = Query.page;
 

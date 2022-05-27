@@ -20,4 +20,17 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-module.exports = { sendResponse, createOtherError, filterObj };
+const getTopRated5Hotels = (hotels) => {
+  let result = [];
+  hotels.map((el) => {
+    const avg = el.reviews.map((el) => el.rating).reduce((a, b) => a + b, 0);
+
+    result.push({ id: el.id, avgRating: avg / el.reviews.length });
+  });
+  const sorted_result = result.sort((a, b) => b.avgRating - a.avgRating);
+
+  const idsArray = sorted_result.map((el) => el.id);
+  return hotels.filter((el) => idsArray.includes(el.id));
+};
+
+module.exports = { sendResponse, createOtherError, filterObj,getTopRated5Hotels };
