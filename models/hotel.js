@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     toJSON() {
       return {
         ...this.get(),
-        id: undefined,
+        // id: undefined,
         createdAt: undefined,
         updatedAt: undefined,
       };
@@ -78,6 +78,7 @@ module.exports = (sequelize, DataTypes) => {
           return this.getDataValue("location");
         },
       },
+      
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,

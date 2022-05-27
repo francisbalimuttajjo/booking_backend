@@ -60,6 +60,7 @@ module.exports = {
           return this.getDataValue("contacts");
         },
       },
+    
       location: {
         type: DataTypes.ARRAY(DataTypes.JSON),
         allowNull: true,

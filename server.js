@@ -10,7 +10,8 @@ app.listen(PORT, async () => {
   db.sequelize
     .authenticate()
     .then(() => console.log("authenticated"))
-    .catch(() => {
+    .catch((err) => {
+    
       console.log("didnt authenticate,something went wrong");
     });
 });

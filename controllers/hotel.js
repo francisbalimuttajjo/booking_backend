@@ -3,9 +3,17 @@ const { sendResponse, filterObj } = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
 const { getSearchQuery } = require("../utils/query");
 
+//adding new hotel
+//getting all hotels
+//editing hotel
+//deleting hotel
+//sorting hotels by high ratings 
+//getting first five highly rated hotels
+
 exports.getAllHotels = async (req, res) => {
   try {
     const { Query, limit, page } = getSearchQuery(req.query);
+
     const hotels = await db.Hotel.findAndCountAll({
       limit,
       offset: page * limit,
@@ -56,8 +64,9 @@ exports.getHotel = async (req, res) => {
       ],
     });
 
-    const averageRating = stats.count;
-    const noOfRatings = parseInt(stats.rows[0].dataValues.averageRating);
+    const noOfRatings = stats.count;
+    const averageRating =
+      stats.count < 1 ? 0 : parseInt(stats.rows[0].dataValues.averageRating);
 
     sendResponse(req, res, 200, {
       averageRating,
