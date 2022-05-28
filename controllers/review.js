@@ -5,11 +5,11 @@ const { errorHandler } = require("../utils/errorHandler");
 exports.createReview = async (req, res) => {
   try {
     if (!req.body.hotel_id) req.body.hotel_id = req.params.hotelId;
-    const { review, user, rating, hotel_id } = req.body;
+    const { review, rating, hotel_id } = req.body;
 
     //ensuring that u review an hotel u actually booked and
     const booked_hotel = await db.Booking.findAll({
-      where: { user, hotel_id },
+      where: { user: req.user.email, hotel_id },
     });
     if (!booked_hotel.length) {
       return sendResponse(
@@ -23,7 +23,7 @@ exports.createReview = async (req, res) => {
 
     //avoiding duplicate Reviews for a single user and same hotel
     const available_review = await db.Review.findAll({
-      where: { user, hotel_id },
+      where: { user: req.user.email, hotel_id },
     });
     if (available_review.length) {
       return sendResponse(
@@ -37,7 +37,7 @@ exports.createReview = async (req, res) => {
 
     const new_review = await db.Review.create({
       review,
-      user,
+      user: req.user.email,
       rating,
       hotel_id,
     });
