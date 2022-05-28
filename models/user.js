@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         ...this.get(),
         active: undefined,
         token: undefined,
-        role: undefined,
+        // role: undefined,
         createdAt: undefined,
         updatedAt: undefined,
         passwordConfirm: undefined,
@@ -98,12 +98,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // User.beforeBulkUpdate((user) => {
-  //   console.log(user);
-  //   console.log(user.password);
-  //   console.log(user.passwordConfirm);
-  // });
+ 
   User.beforeUpdate((user) => {
+   
     return bcrypt
       .hash(user.password, 10)
       .then((hash) => {
