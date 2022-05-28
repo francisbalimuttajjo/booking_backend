@@ -4,12 +4,11 @@ const db = require("../models");
 const { errorHandler } = require("../utils/errorHandler");
 const { sendResponse, signToken, createToken } = require("../utils/utils");
 
-
 //authentication on app start up to keep users logged in
 exports.auth = async (req, res) => {
   try {
-     const { token } = req.headers;
-    
+    const { token } = req.headers;
+
     //verifying token
     const decoded_token = await jwt.verify(token, process.env.JWT_SECRET);
 
@@ -33,7 +32,6 @@ exports.auth = async (req, res) => {
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
-
     if (!roles.includes(req.user.role)) {
       return next(
         sendResponse(
@@ -135,7 +133,7 @@ exports.resetPassword = async (req, res) => {
         "fail"
       );
     await db.User.update(
-      { token: undefined, password },
+      { token: "", password },
       { where: { token, active: true }, individualHooks: true }
     );
 
@@ -162,7 +160,7 @@ exports.loginUser = async (req, res) => {
     const user = await db.User.findOne({
       where: { email: email.trim(), active: true },
     });
-
+ 
     //if not user reject request to login
     if (!user)
       return sendResponse(

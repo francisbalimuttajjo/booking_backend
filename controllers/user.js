@@ -19,7 +19,7 @@ exports.updateMe = async (req, res) => {
     );
     await db.User.update(fields, { where: { email } });
     const user = await db.User.findOne({ where: { email } });
-    console.log(user);
+  
 
     sendResponse(req, res, 200, "operation successfull");
   } catch (err0r) {
