@@ -7,11 +7,9 @@ const {
 const { errorHandler } = require("../utils/errorHandler");
 const { getSearchQuery } = require("../utils/query");
 
-//sorting hotels by high ratings
-//getting first five highly rated hotels
-exports.getTopRatedHotels = async (req, res) => {
+exports.getTop5RatedHotels = async (req, res) => {
   try {
-    const topHotels = await db.Hotel.findAll({
+    const hotels = await db.Hotel.findAll({
       include: [
         {
           model: db.Review,
@@ -20,9 +18,9 @@ exports.getTopRatedHotels = async (req, res) => {
         },
       ],
     });
-    const data = getTopRated5Hotels(topHotels);
+    const topRatedHotels = getTopRated5Hotels(hotels);
 
-    sendResponse(req, res, 200, data.slice(0, 5));
+    sendResponse(req, res, 200, topRatedHotels.slice(0, 5));
   } catch (err) {
     return errorHandler(req, res, err, "Hotel");
   }

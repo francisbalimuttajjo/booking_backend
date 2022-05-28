@@ -1,0 +1,232 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title Booking
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='')
+  link(rel='icon' href='favicon.ico')
+  link(rel='stylesheet' href=' https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css ')
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css')
+  // Plugins
+nav.navbar.navbar-dark.bg-dark.fixed-top.navbar-expand-md
+  .container
+    a.navbar-brand(href='#')
+      img(src='images/booking.jpg' height='30' alt='Booking')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav11' aria-controls='navbarNav11' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav11.collapse.navbar-collapse
+      ul.navbar-nav.ms-auto
+        li.nav-item.active
+          a.nav-link(href='#')
+            | About Us 
+            span.sr-only (current)
+        li.nav-item.active
+          a.nav-link(href='#')
+            | Register 
+            span.sr-only (current)
+      a.btn.btn-outline-light.ms-md-3(href='/api/v1/user/login') Login
+section.pt-2.pb-2.mt-0.align-items-center.d-flex.bg-dark(style='min-height: 100vh; background-size: cover; background-image: url(assets/images/img.jpg);')
+  .container
+    .row.justify-content-center.align-items-center.d-flex-row.text-center.h-100
+      .col-12.col-md-12.h-50
+        p.text-uppercase.text-light - s i n c e | 2 0 18 - 
+        h1.fw-bold.text-light.display-4.mb-2.mt-5
+          | Booking
+          | is
+          br
+          | you  holiday companion.
+        p
+          a.btn.btn-success.btn-lg.mt-5.mb-5(href='#')
+            | Know more
+            | Now &gt;
+        .btn-container-wrapper.p-relative.d-block.zindex-1
+          hr
+    .row.text-left.text-white.align-items-start
+      .col-12.col-md-6.col-lg-4
+        h3.text-white what we do
+        p.text-h3
+          | Fusce dapibus, tellus ac cursus commodo, tortor
+          | mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      .col-12.col-md-6.col-lg-4.pt-4.pt-md-0
+        h3.text-white our mission
+        p.text-h3
+          | Fusce dapibus, tellus ac cursus commodo, tortor
+          | mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      .col-12.col-md-8.m-auto.m-lg-0.col-lg-4.pt-5.pt-lg-0
+        h3.text-white  our values 
+        p.text-h3
+          | Fusce dapibus, tellus ac cursus commodo, tortor
+          | mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+section.pt-5.pb-5
+  .container
+    h3.text-black.text-center Our Partners
+    .row
+      .col-md-4.mb-4
+        .card.shadow-sm
+          img.img-fluid(alt='100%x280' src='images/mainImage/speke.jpg')
+          .card-body
+            h4.card-title Speke Resort Munyonyo
+            p.card-text
+              | Come and enjoy the beauty
+              | of the source of the nile
+            a(href="#") details   
+      .col-md-4.mb-4
+        .card.shadow-sm
+          img.img-fluid(alt='100%x280' src='images/mainImage/speke.jpg')
+          .card-body
+            h4.card-title sheraton hotel
+            p.card-text
+              | With supporting text below as a natural
+              | lead-in to additional content.
+      .col-md-4.mb-4
+        .card.shadow-sm
+          img.img-fluid(alt='100%x280' src='images/mainImage/speke.jpg')
+          .card-body
+            h4.card-title Special title treatment
+            p.card-text
+              | With supporting text below as a natural
+              | lead-in to additional content.
+    .row
+      .col-md-4.mb-4
+        .card.shadow-sm
+          img.img-fluid(alt='100%x280' src='images/mainImage/speke.jpg')
+          .card-body
+            h4.card-title Special title treatment
+            p.card-text
+              | With supporting text below as a natural
+              | lead-in to additional content.
+      .col-md-4.mb-4
+        .card.shadow-sm
+          img.img-fluid(alt='100%x280' src='images/mainImage/speke.jpg')
+          .card-body
+            h4.card-title Special title treatment
+            p.card-text
+              | With supporting text below as a natural
+              | lead-in to additional content.
+      .col-md-4.mb-4
+section.pt-5.pb-5.mt-0.align-items-center.d-flex.bg-dark(style='min-height: 100vh; background-size: cover; background-image: url("https://images.unsplash.com/photo-1444065707204-12decac917e8?ixlib=rb-0.3.5&s=babe0ff0bb017c8c9817d8382b8de440&auto=format&fit=crop&w=1953&q=80");')
+  .container
+    .row.text-center.text-light.justify-content-center
+      .col-md-10.col-lg-8.col-xl-7
+        h3.display-5.fw-bold.text-white Testimonials
+        p.text-h3
+          | Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
+          | auctor. Duis mollis, est non commodo luctus. Vivamus sagittis
+          | lacus vel augue laoreet, rutrum faucibus dolor auctor. Duis
+          | mollis, est non commodo luctus.
+    .row.mt-5.align-items-center.justify-content-center
+      .col-md-8.col-lg-4
+        .card.card-body.p-md-4
+          .row.no-gutters.align-items-center
+            .col-3
+              img.img-fluid.rounded-circle(alt='image' src=' assets/images/user.jpg')
+            .col-8.ml-auto
+              p
+                strong Person Name
+                br
+                em Co-founder at Company
+          .row.mt-4
+            .col-12
+              p.text-h3
+                | &quot;Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+                | dolor auctor. Duis mollis, est non commodo luctus. Vivamus
+                | sagittis lacus vel augue laoreet, rutrum faucibus dolor
+                | auctor. Duis mollis, est non commodo luctus.&quot;
+      .col-md-8.col-lg-4.mt-4.mt-lg-0
+        .card.card-body.p-md-4
+          .row.no-gutters.align-items-center
+            .col-3
+              img.img-fluid.rounded-circle(alt='image' src=' https://dummyimage.com/80x80/5fa9f8/efefef')
+            .col-8.ml-auto
+              p
+                strong Person Name
+                br
+                em Co-founder at Company
+          .row.mt-4
+            .col-12
+              p.text-h3
+                | &quot;Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+                | dolor auctor. Duis mollis, est non commodo luctus. Vivamus
+                | sagittis lacus vel augue laoreet, rutrum faucibus dolor
+                | auctor. Duis mollis, est non commodo luctus.&quot;
+      .col-md-8.col-lg-4.mt-4.mt-lg-0
+        .card.card-body.p-md-4
+          .row.no-gutters.align-items-center
+            .col-3
+              img.img-fluid.rounded-circle(alt='image' src=' https://dummyimage.com/80x80/5fa9f8/efefef')
+            .col-8.ml-auto
+              p
+                strong Person Name
+                br
+                em Co-founder at Company
+          .row.mt-4
+            .col-12
+              p.text-h3
+                | &quot;Vivamus sagittis lacus vel augue laoreet rutrum faucibus
+                | dolor auctor. Duis mollis, est non commodo luctus. Vivamus
+                | sagittis lacus vel augue laoreet, rutrum faucibus dolor
+                | auctor. &quot;
+section.mb-0.mt-0
+  .footer.text-light
+    .bg-dark.pt-5.pb-5
+      .container
+        .row
+          .col-xs-6.col-sm-3
+            a(href='#')
+              title Booking
+              path(fill='currentColor' d='M510 8a94.3 94.3 0 0 1 94 94v408a94.3 94.3 0 0 1-94 94H102a94.3 94.3 0 0 1-94-94V102a94.3 94.3 0 0 1 94-94h408m0-8H102C45.9 0 0 45.9 0 102v408c0 56.1 45.9 102 102 102h408c56.1 0 102-45.9 102-102V102C612 45.9 566.1 0 510 0z')
+              path(fill='currentColor' d='M196.77 471.5V154.43h124.15c54.27 0 91 31.64 91 79.1 0 33-24.17 63.72-54.71 69.21v1.76c43.07 5.49 70.75 35.82 70.75 78 0 55.81-40 89-107.45 89zm39.55-180.4h63.28c46.8 0 72.29-18.68 72.29-53 0-31.42-21.53-48.78-60-48.78h-75.57zm78.22 145.46c47.68 0 72.73-19.34 72.73-56s-25.93-55.37-76.46-55.37h-74.49v111.4z')
+            address.color-light-20
+              | 110 Kampala Road
+              br
+              |  Kampala, Uganda
+          br.hidden-sm-up(style='clear:both')
+          .col-xs-6.col-sm-3
+            h4.my-2 Booking.Inc
+            ul.list-unstyled.list-light
+              li
+                a(href='#') About Us
+              li
+                a(href='#') Blog
+              li
+                a(href='#') Careers
+              li
+                a(href='#') Contact
+          .col-xs-6.col-sm-3
+            h4.my-2 Connect
+            ul.list-unstyled.list-light
+              li
+                a(href='#') Support
+              li
+                a(href='#') Social
+              li
+                a(href='#') Community
+            p.color-light.mt-2 Stay up-to-date!
+            form
+              .form-group
+                .input-group.mb-3
+                  input.form-control.form-control-sm(type='text' placeholder='Email' aria-label='Email' aria-describedby='basic-addon2')
+                  button.btn.btn-primary.btn-sm(type='button') send me updates
+        hr
+        .row.f-flex.justify-content-between(style='')
+          .col-md-8.text-xs-center.text-left.text-secondary.my-1
+            p.mt-2.text-light
+              | &copy; Copyright 2021 &bull; All Rights
+              | Reserved |
+              a(href='#') Disclaimer
+              |  |
+              a(href='#') Contact
+          .col-md-4.text-xs-center.text-lg-right.text-secondary.my-1
+            .btn-container.mt-1.text-md-end.text-sm-center
+              .mb-1.mr-3.align-self-right.pt-0.d-inline-block
+                a.text-light.p-2.m-2.btn.btn-round.btn-rised.btn-icon.btn-primary(href='#' role='button')
+                  i.fab.fa-twitter.fa-lg.color-light(aria-hidden='true')
+                a.text-light.p-2.m-2.btn.btn-round.btn-rised.btn-icon.btn-primary(href='#' role='button')
+                  i.fab.fa-facebook.fa-lg(aria-hidden='true')
+                a.text-light.p-2.m-2.btn.btn-round.btn-rised.btn-icon.btn-primary(href='#' role='button')
+                  i.fab.fa-linkedin.fa-lg(aria-hidden='true')
+                a.text-light.p-2.m-2.btn.btn-rised.btn-round.btn-icon.btn-primary(href='#' role='button')
+                  i.fab.fa-google-plus.fa-lg(aria-hidden='true')
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js' integrity='sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy' crossorigin='anonymous')

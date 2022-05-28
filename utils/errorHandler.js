@@ -4,7 +4,7 @@ const errorHandler = (req, res, error, model) => {
 
    console.log(error);
   if (error.name === "SequelizeUniqueConstraintError") {
-    return sendResponse(req, res, 403, `${model}  already exists`, "fail");
+    return sendResponse(req, res, 403, `${model} already exists`, "fail");
   } else if (error.name === "SequelizeValidationError") {
     const err = error.errors[0].message.split(".").join(" ");
 

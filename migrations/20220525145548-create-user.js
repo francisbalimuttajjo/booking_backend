@@ -30,6 +30,7 @@ module.exports = {
           notEmpty: { args: true, msg: "password is required" },
         },
       },
+      token: DataTypes.STRING,
       photo: {
         type: DataTypes.STRING,
         defaultValue: "",

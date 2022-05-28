@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     toJSON() {
       return {
         ...this.get(),
+        active: undefined,
+        token: undefined,
+        role: undefined,
         createdAt: undefined,
         updatedAt: undefined,
         passwordConfirm: undefined,
@@ -44,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { args: true, msg: "firstName is required" },
         },
       },
+      token: DataTypes.STRING,
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -70,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true,
+        defaultValue: false,
       },
       role: {
         type: DataTypes.STRING,
@@ -93,6 +97,23 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
     }
   );
+
+  // User.beforeBulkUpdate((user) => {
+  //   console.log(user);
+  //   console.log(user.password);
+  //   console.log(user.passwordConfirm);
+  // });
+  User.beforeUpdate((user) => {
+    return bcrypt
+      .hash(user.password, 10)
+      .then((hash) => {
+        user.password = hash;
+      })
+      .catch(() => {
+        let err = createOtherError("something went wrong,try again");
+        throw err;
+      });
+  });
 
   User.beforeCreate((user) => {
     if (user.password !== user.passwordConfirm) {
