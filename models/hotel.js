@@ -106,7 +106,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   SequelizeSlugify.slugifyModel(Hotel, {
     source: ["name"],
-    overwrite: false,
+    overwrite: true,
+    bulkUpdate:true,
   });
 
   Hotel.beforeCreate((hotel) => {
