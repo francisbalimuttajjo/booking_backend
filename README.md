@@ -35,6 +35,14 @@
 </ul>
 
 # routes
+ <h4>/api/v1/hotels/top-rated ,method:GET</h4>   
+   <p>
+
+    response:{
+  "status": "success",
+  "data":[{...hotel},{...hotel},...]
+}
+</p>
  <h4>/api/v1/booking/:id ,method:PATCH</h4>   
    <p>request body: {    
       checkin_date:string,nights:number,cash_paid:number
@@ -51,7 +59,7 @@
   "status": "success",
   "data": "operation successfull"
 }
-</p>
+
 
  <h4>/api/v1/hotels/:hotelId/booking ,method:POST</h4>   
    <p>request body: {    
