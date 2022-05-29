@@ -35,6 +35,9 @@
 </ul>
 
 # routes
+   <h4> /api/v1/hotels ,method:GET</h4>   
+  
+    response:{"status": "success","data": {"count": number,"rows":[{...hotel},{...hotel} ,...]}}
    <h4>/api/v1/hotels ,method:POST</h4>   
    <p>request body: {    
     name:string,price:number,priceDiscount:number,description:string,mainImage:string,services:[string],contacts:[{phone:number},{email:string}],location:[number,number]
@@ -51,7 +54,25 @@
     "mainImage": string,
   services:[string],contacts:[{phone:number},{email:string}],location:[number,number]
   }
-}    
+} 
+  <h4>/api/v1/hotel/:id ,method:GET</h4>   
+    response:{
+  "status": "success",
+  "data": {...hotel}
+}
+
+  <h4>/api/v1/hotel/:id ,method:DELETE</h4>   
+    response:{
+  "status": "success",
+  "data": "operation successfull"
+}
+
+ <h4>/api/v1/hotel/:id ,method:PATCH</h4>   
+    response:{
+  "status": "success",
+  "data": "operation successfull"
+}
+ 
  <h4>/api/v1/hotels/top-rated ,method:GET</h4>   
    <p> response:{ "status": "success", "data":[{...hotel},{...hotel},...]}</p>
  <h4>/api/v1/booking/:id ,method:PATCH</h4>   
