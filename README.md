@@ -35,14 +35,25 @@
 </ul>
 
 # routes
- <h4>/api/v1/hotels/top-rated ,method:GET</h4>   
-   <p>
-
+   <h4>/api/v1/hotels ,method:POST</h4>   
+   <p>request body: {    
+    name:string,price:number,priceDiscount:number,description:string,mainImage:string,services:[string],contacts:[{phone:number},{email:string}],location:[number,number]
+    }
+  <br />
     response:{
   "status": "success",
-  "data":[{...hotel},{...hotel},...]
-}
-</p>
+  "data": {
+    "name": string,
+    "slug":string,
+    "price": number,
+    "priceDiscount": number,
+    "decsription":string,
+    "mainImage": string,
+  services:[string],contacts:[{phone:number},{email:string}],location:[number,number]
+  }
+}    
+ <h4>/api/v1/hotels/top-rated ,method:GET</h4>   
+   <p> response:{ "status": "success", "data":[{...hotel},{...hotel},...]}</p>
  <h4>/api/v1/booking/:id ,method:PATCH</h4>   
    <p>request body: {    
       checkin_date:string,nights:number,cash_paid:number
