@@ -15,14 +15,14 @@ exports.updateMe = async (req, res) => {
       "firstName",
       "lastName",
       "photo",
-      "role"
+   
     );
     await db.User.update(fields, { where: { email } });
-    const user = await db.User.findOne({ where: { email } });
+  
   
 
     sendResponse(req, res, 200, "operation successfull");
-  } catch (err0r) {
+  } catch (error) {
     return errorHandler(req, res, error, "User");
   }
 };
@@ -83,7 +83,7 @@ exports.activateAccount = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password, passwordConfirm } = req.body;
-
+  
     const activationToken = crypto.randomBytes(32).toString("hex");
 
     const token = createToken(activationToken);
@@ -105,7 +105,7 @@ exports.createUser = async (req, res) => {
       await new Email(newUser, url).sendWelcome();
     } catch (e) {
       await db.User.destroy({ where: { email } });
-      sendResponse(
+      return sendResponse(
         req,
         res,
         400,
@@ -114,7 +114,7 @@ exports.createUser = async (req, res) => {
       );
     }
 
-    sendResponse(req, res, 201, `account activation link sent to ${email}`);
+   return sendResponse(req, res, 201, `account activation link sent to ${email}`);
   } catch (error) {
     return errorHandler(req, res, error, "User");
   }
@@ -131,7 +131,7 @@ exports.getUser = async (req, res) => {
         { model: db.Booking, as: "bookings" },
       ],
     });
-    sendResponse(req, res, 201, user);
+   return sendResponse(req, res, 201, user);
   } catch (error) {
     return errorHandler(req, res, error, "User");
   }

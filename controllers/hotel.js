@@ -20,7 +20,7 @@ exports.getTop5RatedHotels = async (req, res) => {
     });
     const topRatedHotels = getTopRated5Hotels(hotels);
 
-    sendResponse(req, res, 200, topRatedHotels.slice(0, 5));
+    return sendResponse(req, res, 200, topRatedHotels.slice(0, 5));
   } catch (err) {
     return errorHandler(req, res, err, "Hotel");
   }
@@ -45,7 +45,7 @@ exports.deleteHotel = async (req, res) => {
     await db.Review.destroy({ where: { hotel_id: id } }, { transaction });
     await db.Hotel.destroy({ where: { id } }, { transaction });
 
-    sendResponse(req, res, 200, "operation successfull");
+   return sendResponse(req, res, 200, "operation successfull");
   } catch (err) {
     if (transaction) {
       await transaction.rollback();
@@ -81,7 +81,7 @@ exports.updateHotel = async (req, res) => {
         "fail"
       );
     }
-    sendResponse(req, res, 200, "update successfull");
+   return sendResponse(req, res, 200, "update successfull");
   } catch (err) {
     return errorHandler(req, res, err, "Hotel");
   }
@@ -99,7 +99,7 @@ exports.getAllHotels = async (req, res) => {
       order: [["price", "ASC"]],
     });
 
-    sendResponse(req, res, 200, hotels);
+   return sendResponse(req, res, 200, hotels);
   } catch (err) {
     return errorHandler(req, res, err, "Hotel");
   }
@@ -120,7 +120,7 @@ exports.createHotel = async (req, res) => {
     );
 
     const hotel = await db.Hotel.create(fields);
-    sendResponse(req, res, 201, hotel);
+   return sendResponse(req, res, 201, hotel);
   } catch (error) {
     return errorHandler(req, res, error, "Hotel");
   }
@@ -135,6 +135,15 @@ exports.getHotel = async (req, res) => {
         { model: db.Booking, as: "bookings" },
       ],
     });
+    if (!hotel) {
+      return sendResponse(
+        req,
+        res,
+        404,
+        `hotel with id ${req.params.id} is not available`
+      );
+    }
+
     //adding avg ratings and number of ratings
     let stats = await db.Review.findAndCountAll({
       where: { hotel_id: req.params.id },
@@ -147,7 +156,7 @@ exports.getHotel = async (req, res) => {
     const averageRating =
       stats.count < 1 ? 5 : parseInt(stats.rows[0].dataValues.averageRating);
 
-    sendResponse(req, res, 200, {
+   return sendResponse(req, res, 200, {
       averageRating,
       noOfRatings,
       hotel,

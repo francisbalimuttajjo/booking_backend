@@ -5,5 +5,7 @@ const router = express.Router();
 
 router
   .route("/hotels/:hotelId/reviews")
-  .post(authController.isAuthenticated, reviewController.createReview);
+  .post(
+    authController.isAuthenticated,
+    reviewController.createReview);
 module.exports = router;

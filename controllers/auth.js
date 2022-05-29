@@ -26,21 +26,19 @@ exports.auth = async (req, res) => {
 
     sendResponse(req, res, 400, "no user with the id", "fail");
   } catch (err) {
-    sendResponse(req, res, 400, err.message, "fail");
+    return sendResponse(req, res, 400, err.message, "fail");
   }
 };
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return next(
-        sendResponse(
-          req,
-          res,
-          403,
-          "You do not have permission to perform this action",
-          "fail"
-        )
+      return sendResponse(
+        req,
+        res,
+        403,
+        "You do not have permission to perform this action",
+        "fail"
       );
     }
 
@@ -72,7 +70,7 @@ exports.isAuthenticated = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    sendResponse(req, res, 400, err.message, "fail");
+    return sendResponse(req, res, 400, err.message, "fail");
   }
 };
 
@@ -105,7 +103,7 @@ exports.updatePassword = async (req, res) => {
       { where: { email }, individualHooks: true }
     );
 
-    sendResponse(req, res, 200, "password updated");
+   return sendResponse(req, res, 200, "password updated");
   } catch (err) {
     return errorHandler(req, res, err, "User");
   }
@@ -137,7 +135,7 @@ exports.resetPassword = async (req, res) => {
       { where: { token, active: true }, individualHooks: true }
     );
 
-    sendResponse(req, res, 200, "operation successful");
+    return sendResponse(req, res, 200, "operation successful");
   } catch (err) {
     return errorHandler(req, res, err, "User");
   }
@@ -160,7 +158,7 @@ exports.loginUser = async (req, res) => {
     const user = await db.User.findOne({
       where: { email: email.trim(), active: true },
     });
- 
+
     //if not user reject request to login
     if (!user)
       return sendResponse(

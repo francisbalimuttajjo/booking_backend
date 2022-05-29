@@ -14,19 +14,10 @@ router
 
 router.use(authController.isAuthenticated);
 
-router.route("/users").post(userController.getUser);
+router
+  .route("/users")
+  .post(authController.restrictTo("admin"), userController.getUser);
 router.route("/users/updateMe").post(userController.updateMe);
 router.route("/users/updatePassword").post(authController.updatePassword);
-
-// router
-//   .route("/users")
-//   .post(authController.isAuthenticated, userController.getUser);
-// router
-//   .route("/users/updateMe")
-//   .post(authController.isAuthenticated, userController.updateMe);
-
-// router
-//   .route("/users/updatePassword")
-//   .post(authController.isAuthenticated, authController.updatePassword);
 
 module.exports = router;

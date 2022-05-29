@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     toJSON() {
       return {
         ...this.get(),
-        // id: undefined,
+
         createdAt: undefined,
         updatedAt: undefined,
       };
@@ -106,6 +106,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   SequelizeSlugify.slugifyModel(Hotel, {
     source: ["name"],
+    overwrite: false,
   });
 
   Hotel.beforeCreate((hotel) => {

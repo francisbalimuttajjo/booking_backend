@@ -19,7 +19,7 @@ exports.editBooking = async (req, res) => {
         "fail"
       );
     }
-    sendResponse(req, res, 200, "update successfull");
+   return sendResponse(req, res, 200, "update successfull");
   } catch (err) {
     return errorHandler(req, res, err, "Booking");
   }
@@ -32,7 +32,7 @@ exports.cancelBooking = async (req, res) => {
     if (result < 1) {
       return sendResponse(req, res, 404, "no data for provided id", "fail");
     }
-    sendResponse(req, res, 200, "operation successfull");
+   return sendResponse(req, res, 200, "operation successfull");
   } catch (err) {
     return errorHandler(req, res, err, "Booking");
   }
@@ -50,7 +50,7 @@ exports.createBooking = async (req, res) => {
       nights,
       cash_paid,
     });
-    sendResponse(req, res, 201, booking);
+    return sendResponse(req, res, 201, booking);
   } catch (error) {
     return errorHandler(req, res, error, "Booking");
   }

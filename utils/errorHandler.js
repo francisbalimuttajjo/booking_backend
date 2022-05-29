@@ -2,7 +2,7 @@ const { sendResponse } = require("./utils");
 
 const errorHandler = (req, res, error, model) => {
 
-   console.log(error);
+   
   if (error.name === "SequelizeUniqueConstraintError") {
     return sendResponse(req, res, 403, `${model} already exists`, "fail");
   } else if (error.name === "SequelizeValidationError") {
@@ -11,8 +11,7 @@ const errorHandler = (req, res, error, model) => {
     return sendResponse(req, res, 400, err, "fail");
   }
   //invalid id type
-  else if (error.name === "SequelizeDatabaseError") {
-   
+  else if (error.name === "SequelizeDatabaseError") {   
     return sendResponse(req, res, 400, "invalid id provided", "fail");
   } else if (error.name === "otherError") {
     return sendResponse(req, res, 400, error.info.message, "fail");
