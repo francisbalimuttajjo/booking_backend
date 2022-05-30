@@ -19,7 +19,7 @@ exports.editBooking = async (req, res) => {
         "fail"
       );
     }
-   return sendResponse(req, res, 200, "update successfull");
+    return sendResponse(req, res, 200, "update successfull");
   } catch (err) {
     return errorHandler(req, res, err, "Booking");
   }
@@ -32,7 +32,7 @@ exports.cancelBooking = async (req, res) => {
     if (result < 1) {
       return sendResponse(req, res, 404, "no data for provided id", "fail");
     }
-   return sendResponse(req, res, 200, "operation successfull");
+    return sendResponse(req, res, 200, "operation successfull");
   } catch (err) {
     return errorHandler(req, res, err, "Booking");
   }
@@ -41,10 +41,11 @@ exports.cancelBooking = async (req, res) => {
 exports.createBooking = async (req, res) => {
   try {
     if (!req.body.hotel_id) req.body.hotel_id = req.params.hotelId;
-    const { hotel_id, checkin_date, nights, cash_paid } = req.body;
+    if (!req.body.user) req.body.user = req.user.email;
+    const { hotel_id, checkin_date, nights, cash_paid, user } = req.body;
 
     const booking = await db.Booking.create({
-      user: req.user.email,
+      user,
       hotel_id,
       checkin_date,
       nights,

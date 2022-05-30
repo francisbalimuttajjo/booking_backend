@@ -1,9 +1,9 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../models");
-const { obj } = require("./data/user");
+const { obj } = require("../data/user");
 
-describe("POST /users/register", () => {
+describe("users", () => {
   test("checking if user is created ", async () => {
     await db.User.destroy({ where: { email: "testuser@gmail.com" } });
     const res = await request(app)
@@ -11,6 +11,8 @@ describe("POST /users/register", () => {
       .send(obj.user);
     expect(res.body.status).toBe("success");
   }, 18000);
+
+    
 
   test("Should fail if firstName is missing ", async () => {
     const res = await request(app)
