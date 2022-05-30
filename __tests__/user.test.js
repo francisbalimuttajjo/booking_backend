@@ -1,48 +1,48 @@
-// const request = require("supertest");
-// const app = require("../app");
+const request = require("supertest");
+const app = require("../app");
+const db = require("../models");
+const { obj } = require("./data/user");
 
-// describe("POST /users/register", () => {
-//   const user = {
-//     firstName: "bafra",
-//     lastName: "1 ",
-//     password: "francis",
-//     passwordConfirm: "francis",
-//     email: "bafrna@gmail.cyo",
-//   };
+describe("POST /users/register", () => {
+  test("checking if user is created ", async () => {
+    await db.User.destroy({ where: { email: "testuser@gmail.com" } });
+    const res = await request(app)
+      .post("/api/v1/users/register")
+      .send(obj.user);
+    expect(res.body.status).toBe("success");
+  }, 18000);
 
-//   test("Should confirm that no empty fields are passed in ", async () => {
-//     const res = await request(app).post("/api/v1/users/register").send(user);
-//     expect(res.body.status).toBe("fail");
-//   });
+  test("Should fail if firstName is missing ", async () => {
+    const res = await request(app)
+      .post("/api/v1/users/register")
+      .send(obj.user1);
+    expect(res.body.status).toBe("fail");
+  });
 
-//   test("should confirm if right email type is provided ", async () => {
-//     const res = await request(app).post("/api/v1/users/register").send(user);
-//     expect(res.body).toStrictEqual({
-//       status: "fail",
-//       data: "Please provide a valid email",
-//     });
-//   });
+  test("should confirm if right email type is provided ", async () => {
+    const res = await request(app)
+      .post("/api/v1/users/register")
+      .send(obj.user2);
+    expect(res.body).toStrictEqual({
+      status: "fail",
+      data: "Please provide a valid email",
+    });
+  });
 
-//   test("password and passwordConfirm must be the same ", async () => {
-//     const res = await request(app).post("/api/v1/users/register").send(user);
-//     expect(res.body).toStrictEqual({
-//       status: "fail",
-//       data: "passwords must be the same",
-//     });
-//   });
+  test("password and passwordConfirm must be the same ", async () => {
+    const res = await request(app)
+      .post("/api/v1/users/register")
+      .send(obj.user3);
+    expect(res.body).toStrictEqual({
+      status: "fail",
+      data: "passwords must be the same",
+    });
+  });
 
-//   test("checking no duplicate email ", async () => {
-//     const res = await request(app).post("/api/v1/users/register").send(user);
-
-//     expect(res.body).toStrictEqual({
-//       status: "fail",
-//       data: "User  already exists",
-//     });
-//   });
-
-//   test("checking if user is created ", async () => {
-//     const res = await request(app).post("/api/v1/users/register").send(user);
-//     expect(res.body.status).toBe("success");
-//     expect(res.body.data).toHaveProperty("photo");
-//   });
-// });
+  test("checking no duplicate email ", async () => {
+    const res = await request(app)
+      .post("/api/v1/users/register")
+      .send(obj.user);
+    expect(res.body.status).toBe("fail");
+  });
+});
