@@ -122,6 +122,7 @@ exports.createHotel = async (req, res) => {
     const hotel = await db.Hotel.create(fields);
     return sendResponse(req, res, 201, hotel);
   } catch (error) {
+   
     return errorHandler(req, res, error, "Hotel");
   }
 };

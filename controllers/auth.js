@@ -7,6 +7,7 @@ const { sendResponse, signToken, createToken } = require("../utils/utils");
 //authentication on app start up to keep users logged in
 exports.auth = async (req, res) => {
   try {
+    if (!req.headers.token) req.headers.token = req.body.token;
     const { token } = req.headers;
 
     //verifying token
@@ -103,7 +104,7 @@ exports.updatePassword = async (req, res) => {
       { where: { email }, individualHooks: true }
     );
 
-   return sendResponse(req, res, 200, "password updated");
+    return sendResponse(req, res, 200, "password updated");
   } catch (err) {
     return errorHandler(req, res, err, "User");
   }
@@ -181,7 +182,7 @@ exports.loginUser = async (req, res) => {
       );
     //sign token and send it with user
     const token = await signToken(user.id);
-    console.log(token)
+    console.log(token);
     sendResponse(req, res, 200, { user, token });
   } catch (err) {
     sendResponse(req, res, 400, err.message, "fail");
