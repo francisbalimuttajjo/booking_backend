@@ -13,7 +13,7 @@ router
   .get(userController.activateAccount);
 
 router.use(authController.isAuthenticated);
-
+//
 router
   .route("/users")
   .post(authController.restrictTo("admin"), userController.getUser);
