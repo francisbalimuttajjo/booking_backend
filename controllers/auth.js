@@ -182,7 +182,6 @@ exports.loginUser = async (req, res) => {
       );
     //sign token and send it with user
     const token = await signToken(user.id);
-    console.log(token);
     sendResponse(req, res, 200, { user, token });
   } catch (err) {
     sendResponse(req, res, 400, err.message, "fail");

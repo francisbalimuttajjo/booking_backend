@@ -42,7 +42,7 @@ exports.createReview = async (req, res) => {
       hotel_id,
     });
 
-   return sendResponse(req, res, 201, new_review);
+    return sendResponse(req, res, 201, new_review);
   } catch (error) {
     return errorHandler(req, res, error, "Review");
   }
@@ -56,7 +56,7 @@ exports.getReviews = async (req, res) => {
         { model: db.Hotel, as: "hotel" },
       ],
     });
-   return sendResponse(req, res, 201, reviews);
+    return sendResponse(req, res, 201, reviews);
   } catch (error) {
     return errorHandler(req, res, error, "Review");
   }

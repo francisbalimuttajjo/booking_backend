@@ -133,7 +133,11 @@ exports.getHotel = async (req, res) => {
     const hotel = await db.Hotel.findOne({
       where: { id: req.params.id },
       include: [
-        { model: db.Review, as: "reviews" },
+        {
+          model: db.Review,
+          as: "reviews",
+          include: [{ model: db.User, as: "author" }],
+        },
         { model: db.Booking, as: "bookings" },
       ],
     });
@@ -156,7 +160,7 @@ exports.getHotel = async (req, res) => {
 
     const noOfRatings = stats.count;
     const averageRating =
-      stats.count < 1 ? 5 : parseInt(stats.rows[0].dataValues.averageRating);
+      stats.count < 1 ? 5 : stats.rows[0].dataValues.averageRating;
 
     return sendResponse(req, res, 200, {
       averageRating,
@@ -164,6 +168,7 @@ exports.getHotel = async (req, res) => {
       hotel,
     });
   } catch (error) {
+    console.log(error);
     return errorHandler(req, res, error, "Hotel");
   }
 };
