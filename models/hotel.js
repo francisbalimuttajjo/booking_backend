@@ -47,6 +47,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: { args: true, msg: "description is required" },
         },
       },
+      physicalLocation: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: { args: true, msg: "location  is required" },
+        },
+      },
       mainImage: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -107,7 +114,7 @@ module.exports = (sequelize, DataTypes) => {
   SequelizeSlugify.slugifyModel(Hotel, {
     source: ["name"],
     overwrite: true,
-    bulkUpdate:true,
+    bulkUpdate: true,
   });
 
   Hotel.beforeCreate((hotel) => {
