@@ -159,8 +159,8 @@ exports.getHotel = async (req, res) => {
     });
 
     const noOfRatings = stats.count;
-    const averageRating =
-      stats.count < 1 ? 5 : stats.rows[0].dataValues.averageRating;
+    const count = stats.rows[0].dataValues.averageRating;
+    const averageRating = stats.count < 1 ? 5 : Math.round(count * 10) / 10;
 
     return sendResponse(req, res, 200, {
       averageRating,
