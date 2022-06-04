@@ -23,8 +23,8 @@ router
   .route("/hotels/:id")
   .get(hotelController.getHotel)
   .patch(
-    // authController.isAuthenticated,
-    // authController.restrictTo("admin"),
+    authController.isAuthenticated,
+    authController.restrictTo("admin"),
     hotelController.updateHotel
   )
   .delete(
