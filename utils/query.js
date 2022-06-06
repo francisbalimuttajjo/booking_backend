@@ -7,6 +7,8 @@ exports.getSearchQuery = (query) => {
   if (query.name) Query.name = { [Op.like]: `%${query.name}%` };
   if (query.slug) Query.slug = { [Op.like]: `%${query.slug}%` };
   if (query.price) Query.price = parseInt(query.price);
+  if (query.location)
+    Query.physicalLocation = { [Op.like]: `%${query.location}%` };
   Query.page = query.page ? query.page : 0;
   Query.limit = query.limit ? query.limit : 12;
   const limit = Query.limit;
@@ -14,6 +16,8 @@ exports.getSearchQuery = (query) => {
 
   delete Query["page"];
   delete Query["limit"];
+
+
 
   return { Query, limit, page };
 };
