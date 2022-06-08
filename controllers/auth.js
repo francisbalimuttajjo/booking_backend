@@ -110,43 +110,6 @@ exports.updatePassword = async (req, res) => {
   }
 };
 
-exports.resetPassword = async (req, res) => {
-  try {
-    const { password, passwordConfirm, secret } = req.body;
-    if (!password || !passwordConfirm) {
-      return sendResponse(
-        req,
-        res,
-        400,
-        "please provide passwords and token",
-        "fail"
-      );
-    }
-    if (password !== passwordConfirm) {
-      return sendResponse(req, res, 400, " Passwords must be the same", "fail");
-    }
-    const token = createToken(secret.toString());
-
-    const user = await db.User.findOne({ where: { token, active: true } });
-
-    if (!user)
-      return sendResponse(
-        req,
-        res,
-        400,
-        "token doesnt exist or is expired",
-        "fail"
-      );
-    await db.User.update(
-      { token: "", password },
-      { where: { token, active: true }, individualHooks: true }
-    );
-
-    return sendResponse(req, res, 200, "operation successful");
-  } catch (err) {
-    return errorHandler(req, res, err, "User");
-  }
-};
 
 exports.loginUser = async (req, res) => {
   try {

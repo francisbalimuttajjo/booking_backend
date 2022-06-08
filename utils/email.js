@@ -11,7 +11,6 @@ module.exports = class Email {
   }
 
   newTransport() {
- 
     return nodemailer.createTransport({
       host: process.env.MAIL_HOST,
       port: 465,
@@ -49,9 +48,6 @@ module.exports = class Email {
   }
 
   async sendPasswordReset() {
-    await this.send(
-      "passwordReset",
-      "Your password reset token "
-    );
+    await this.send("passwordReset", "Your Password Reset  ");
   }
 };

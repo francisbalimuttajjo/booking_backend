@@ -1,6 +1,7 @@
 const { sendResponse } = require("./utils");
 
 const errorHandler = (req, res, error, model) => {
+
   if (error.name === "SequelizeUniqueConstraintError") {
     return sendResponse(req, res, 403, `${model} already exists`, "fail");
   } else if (error.name === "SequelizeValidationError") {

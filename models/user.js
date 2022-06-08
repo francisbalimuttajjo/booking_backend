@@ -99,6 +99,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   User.beforeUpdate((user) => {
+    
     return bcrypt
       .hash(user.password, 10)
       .then((hash) => {

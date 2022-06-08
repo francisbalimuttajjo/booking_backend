@@ -30,25 +30,37 @@ exports.forgotPassword = async (req, res) => {
     if (!email)
       return sendResponse(req, res, 400, "please provide an email", "fail");
 
-    const activationToken = getRandomNumber(100000, 1000000);
-    const token = createToken(activationToken.toString());
+    const new_password = getRandomNumber(1000000, 10000000).toString();
 
     const user = await db.User.findOne({
       where: { email: email.trim(), active: true },
     });
+
     if (!user) {
       return sendResponse(req, res, 400, "no user with that email", "fail");
     }
+    const stored_password = user.password;
 
-    await db.User.update({ token }, { where: { email, active: true } });
+    await db.User.update(
+      { password: new_password },
+      { where: { email: email.trim(), active: true }, individualHooks: true }
+    );
 
     try {
       ///sending the emails
-      await new Email(user, activationToken).sendPasswordReset();
+      await new Email(user, new_password).sendPasswordReset();
 
-      return sendResponse(req, res, 200, `Reset Token  sent to ${email}`);
+      return sendResponse(
+        req,
+        res,
+        200,
+        `A new password has been   sent to ${email}`
+      );
     } catch (err) {
-      await db.User.update({ token: "" }, { where: { email, active: true } });
+      await db.User.update(
+        { password: stored_password },
+        { where: { email, active: true } }
+      );
       return sendResponse(req, res, 500, "error while sending email", "fail");
     }
   } catch (err) {
