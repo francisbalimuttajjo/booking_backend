@@ -33,7 +33,9 @@ exports.forgotPassword = async (req, res) => {
     const activationToken = getRandomNumber(100000, 1000000);
     const token = createToken(activationToken.toString());
 
-    const user = await db.User.findOne({ where: { email, active: true } });
+    const user = await db.User.findOne({
+      where: { email: email.trim(), active: true },
+    });
     if (!user) {
       return sendResponse(req, res, 400, "no user with that email", "fail");
     }
