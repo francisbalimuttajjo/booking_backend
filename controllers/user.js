@@ -91,7 +91,7 @@ exports.createUser = async (req, res) => {
     const newUser = await db.User.create({
       firstName,
       lastName,
-      email,
+      email:email.trim(),
       password,
       passwordConfirm,
       token,
