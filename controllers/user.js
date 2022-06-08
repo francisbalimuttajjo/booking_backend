@@ -10,16 +10,8 @@ exports.updateMe = async (req, res) => {
     if (!email) {
       return sendResponse(req, res, 400, "please provide an email", "fail");
     }
-    const fields = filterObj(
-      req.body,
-      "firstName",
-      "lastName",
-      "photo",
-   
-    );
+    const fields = filterObj(req.body, "firstName", "lastName", "photo");
     await db.User.update(fields, { where: { email } });
-  
-  
 
     sendResponse(req, res, 200, "operation successfull");
   } catch (error) {
@@ -73,8 +65,7 @@ exports.activateAccount = async (req, res) => {
         where: { token },
       }
     );
-
-    return sendResponse(req, res, 200, "account activated,login to continue");
+    return res.render("success.pug");
   } catch (err) {
     return errorHandler(req, res, error, "User");
   }
@@ -82,8 +73,9 @@ exports.activateAccount = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
+    
     const { firstName, lastName, email, password, passwordConfirm } = req.body;
-  
+
     const activationToken = crypto.randomBytes(32).toString("hex");
 
     const token = createToken(activationToken);
@@ -91,7 +83,7 @@ exports.createUser = async (req, res) => {
     const newUser = await db.User.create({
       firstName,
       lastName,
-      email:email.trim(),
+      email: email.trim(),
       password,
       passwordConfirm,
       token,
@@ -114,7 +106,12 @@ exports.createUser = async (req, res) => {
       );
     }
 
-   return sendResponse(req, res, 201, `account activation link sent to ${email}`);
+    return sendResponse(
+      req,
+      res,
+      201,
+      `account activation link sent to ${email}`
+    );
   } catch (error) {
     return errorHandler(req, res, error, "User");
   }
@@ -131,7 +128,7 @@ exports.getUser = async (req, res) => {
         { model: db.Booking, as: "bookings" },
       ],
     });
-   return sendResponse(req, res, 201, user);
+    return sendResponse(req, res, 201, user);
   } catch (error) {
     return errorHandler(req, res, error, "User");
   }

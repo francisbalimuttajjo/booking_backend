@@ -29,7 +29,7 @@ useTreblle(app, {
 // app.get("/", (req, res) => {
 //   res.render("passwordReset.pug", { firstName: "bafra" });
 // });
-
+// app.get("/", (req, res) => res.render("success.pug"));
 app.use("/api/v1", hotelRouter);
 app.use("/api/v1", userRouter);
 app.use("/api/v1", reviewRouter);

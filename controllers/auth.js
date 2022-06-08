@@ -155,7 +155,7 @@ exports.loginUser = async (req, res) => {
         "Please provide email and password",
         "fail"
       );
-    //confirming users existance && that the user is active ie didnt delete or hasnt activated his acc
+    //confirming users existance && that the user is active ie didnt delete or has activated his acc
     const user = await db.User.findOne({
       where: { email: email.trim(), active: true },
     });
