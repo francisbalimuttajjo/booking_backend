@@ -43,14 +43,10 @@ exports.forgotPassword = async (req, res) => {
     await db.User.update({ token }, { where: { email, active: true } });
 
     try {
-      // const url = `${req.protocol}://${req.get(
-      //   "host"
-      // )}/api/v1/users/passwordReset/${activationToken}`;
-
       ///sending the emails
       await new Email(user, activationToken).sendPasswordReset();
 
-      return sendResponse(req, res, 200, `activation link sent to ${email}`);
+      return sendResponse(req, res, 200, `Reset Token  sent to ${email}`);
     } catch (err) {
       await db.User.update({ token: "" }, { where: { email, active: true } });
       return sendResponse(req, res, 500, "error while sending email", "fail");
