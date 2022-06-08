@@ -1,6 +1,11 @@
 const db = require("../models");
 const crypto = require("crypto");
-const { sendResponse, createToken, filterObj } = require("../utils/utils");
+const {
+  sendResponse,
+  createToken,
+  filterObj,
+  getRandomNumber,
+} = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
 const Email = require("../utils/email");
 
@@ -25,8 +30,8 @@ exports.forgotPassword = async (req, res) => {
     if (!email)
       return sendResponse(req, res, 400, "please provide an email", "fail");
 
-    const activationToken = crypto.randomBytes(32).toString("hex");
-    const token = createToken(activationToken);
+    const activationToken = getRandomNumber(100000, 1000000);
+    const token = createToken(activationToken.toString());
 
     const user = await db.User.findOne({ where: { email, active: true } });
     if (!user) {
@@ -36,12 +41,12 @@ exports.forgotPassword = async (req, res) => {
     await db.User.update({ token }, { where: { email, active: true } });
 
     try {
-      const url = `${req.protocol}://${req.get(
-        "host"
-      )}/api/v1/users/passwordReset/${activationToken}`;
+      // const url = `${req.protocol}://${req.get(
+      //   "host"
+      // )}/api/v1/users/passwordReset/${activationToken}`;
 
       ///sending the emails
-      await new Email(user, url).sendPasswordReset();
+      await new Email(user, activationToken).sendPasswordReset();
 
       return sendResponse(req, res, 200, `activation link sent to ${email}`);
     } catch (err) {
@@ -73,7 +78,6 @@ exports.activateAccount = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
-    
     const { firstName, lastName, email, password, passwordConfirm } = req.body;
 
     const activationToken = crypto.randomBytes(32).toString("hex");
@@ -110,7 +114,7 @@ exports.createUser = async (req, res) => {
       req,
       res,
       201,
-      `account activation link sent to ${email}`
+      `Account activation link sent to ${email}`
     );
   } catch (error) {
     return errorHandler(req, res, error, "User");

@@ -2,7 +2,7 @@ const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
 const express = require("express");
-const { useTreblle } = require("treblle");
+// const { useTreblle } = require("treblle");
 const cookieParser = require("cookie-parser");
 const { sendResponse } = require("./utils/utils");
 const hotelRouter = require("./routes/hotel");
@@ -21,13 +21,13 @@ app.use(express.json({ limit: "10kb" }));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-useTreblle(app, {
-  apiKey: process.env.TREBLE_KEY,
-  projectId: process.env.TREBLE_ID,
-});
+// useTreblle(app, {
+//   apiKey: process.env.TREBLE_KEY,
+//   projectId: process.env.TREBLE_ID,
+// });
 
 // app.get("/", (req, res) => {
-//   res.render("passwordReset.pug", { firstName: "bafra" });
+//   res.render("passwordReset.pug", { firstName: "bafra",token:664352 });
 // });
 // app.get("/", (req, res) => res.render("success.pug"));
 app.use("/api/v1", hotelRouter);

@@ -170,7 +170,7 @@ exports.getHotel = async (req, res) => {
       hotel,
     });
   } catch (error) {
-    console.log(error);
+  
     return errorHandler(req, res, error, "Hotel");
   }
 };

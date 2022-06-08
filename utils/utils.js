@@ -40,6 +40,8 @@ const filterObj = (obj, ...allowedFields) => {
   });
   return newObj;
 };
+const getRandomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min) + min);
 
 const getTopRated5Hotels = (hotels) => {
   let result = [];
@@ -62,4 +64,5 @@ module.exports = {
   createToken,
   signToken,
   cookieOptions,
+  getRandomNumber,
 };
