@@ -2,7 +2,6 @@ const { Op } = require("sequelize");
 
 // function
 exports.getSearchQuery = (query) => {
- 
   let Query = {};
 
   if (query.name) Query.name = { [Op.like]: `%${query.name}%` };
@@ -18,5 +17,15 @@ exports.getSearchQuery = (query) => {
   delete Query["page"];
   delete Query["limit"];
 
-  return { Query, limit, page };
+  let searchQuery = Query;
+
+  if (query.range) {
+    const values = query.range.split("-");
+    const new_query = {
+      [Op.between]: [parseInt(values[0]), parseInt(values[1])],
+    };
+    searchQuery = { ...Query, price: new_query };
+  }
+
+  return { searchQuery, limit, page };
 };
