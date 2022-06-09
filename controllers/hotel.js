@@ -6,6 +6,35 @@ const {
 } = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
 const { getSearchQuery } = require("../utils/query");
+const { Op } = require("sequelize");
+
+exports.getAllHotels = async (req, res) => {
+  try {
+    const { Query, limit, page } = getSearchQuery(req.query);
+
+    let searchQuery = Query;
+    
+    if (req.query.range) {
+      const values = req.query.range.split("-");
+      const new_query = {
+        [Op.between]: [parseInt(values[0]), parseInt(values[1])],
+      };
+      searchQuery = { ...Query, price: new_query };
+    }
+
+    const hotels = await db.Hotel.findAndCountAll({
+      limit,
+      offset: page * limit,
+      where: searchQuery,
+      order: [["price", "ASC"]],
+    });
+
+    return sendResponse(req, res, 200, hotels);
+  } catch (err) {
+    console.log(err);
+    return errorHandler(req, res, err, "Hotel");
+  }
+};
 
 exports.getTop5RatedHotels = async (req, res) => {
   try {
@@ -88,24 +117,6 @@ exports.updateHotel = async (req, res) => {
   }
 };
 
-exports.getAllHotels = async (req, res) => {
-  try {
-    const { Query, limit, page } = getSearchQuery(req.query);
-
-    const hotels = await db.Hotel.findAndCountAll({
-      limit,
-      offset: page * limit,
-      where: Query,
-      // order: [["price", "DESC"]],
-      order: [["price", "ASC"]],
-    });
-
-    return sendResponse(req, res, 200, hotels);
-  } catch (err) {
-    return errorHandler(req, res, err, "Hotel");
-  }
-};
-
 exports.createHotel = async (req, res) => {
   try {
     const fields = filterObj(
@@ -170,7 +181,6 @@ exports.getHotel = async (req, res) => {
       hotel,
     });
   } catch (error) {
-  
     return errorHandler(req, res, error, "Hotel");
   }
 };

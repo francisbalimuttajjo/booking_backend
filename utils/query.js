@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 
 // function
 exports.getSearchQuery = (query) => {
+ 
   let Query = {};
 
   if (query.name) Query.name = { [Op.like]: `%${query.name}%` };
@@ -16,8 +17,6 @@ exports.getSearchQuery = (query) => {
 
   delete Query["page"];
   delete Query["limit"];
-
-
 
   return { Query, limit, page };
 };

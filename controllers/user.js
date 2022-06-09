@@ -54,7 +54,7 @@ exports.forgotPassword = async (req, res) => {
         req,
         res,
         200,
-        `A new password has been   sent to ${email}`
+        `A new password has been  sent to ${email}`
       );
     } catch (err) {
       await db.User.update(
