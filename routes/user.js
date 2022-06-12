@@ -3,7 +3,7 @@ const userController = require("../controllers/user");
 const authController = require("../controllers/auth");
 const router = express.Router();
 
-router.route("/users/auth").post(authController.auth);
+router.route("/users/auth").get(authController.auth);
 router.route("/users/login").post(authController.loginUser);
 router.route("/users/register").post(userController.createUser);
 router.route("/users/forgotPassword").post(userController.forgotPassword);
