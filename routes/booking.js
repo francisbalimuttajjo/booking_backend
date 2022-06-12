@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.use(authController.isAuthenticated);
 
-router.route("/booking").post(bookingController.getMyBookings);
+router.route("/booking").get(bookingController.getMyBookings);
 
 router
   .route("/booking/:id")
