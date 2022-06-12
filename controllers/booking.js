@@ -2,6 +2,19 @@ const db = require("../models");
 const { sendResponse, filterObj } = require("../utils/utils");
 const { errorHandler } = require("../utils/errorHandler");
 
+exports.getMyBookings = async (req, res) => {
+  try {
+    if (!req.body.user) req.body.user = req.user.email;
+
+    const bookings = await db.Booking.findAndCountAll({
+      where: { user: req.body.user },
+    });
+    return sendResponse(req, res, 200, bookings);
+  } catch (error) {
+    return errorHandler(req, res, error, "Booking");
+  }
+};
+
 exports.editBooking = async (req, res) => {
   const fields = filterObj(req.body, "checkin_date", "nights", "cash_paid");
 

@@ -12,16 +12,6 @@ exports.getAllHotels = async (req, res) => {
   try {
     const { searchQuery, limit, page } = getSearchQuery(req.query);
 
-    // let searchQuery = Query;
-
-    // if (req.query.range) {
-    //   const values = req.query.range.split("-");
-    //   const new_query = {
-    //     [Op.between]: [parseInt(values[0]), parseInt(values[1])],
-    //   };
-    //   searchQuery = { ...Query, price: new_query };
-    // }
-
     const hotels = await db.Hotel.findAndCountAll({
       limit,
       offset: page * limit,
