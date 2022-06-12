@@ -8,6 +8,7 @@ exports.getMyBookings = async (req, res) => {
 
     const bookings = await db.Booking.findAndCountAll({
       where: { user: req.body.user },
+      include: [{ model: db.Hotel, as: "hotel" }],
     });
     return sendResponse(req, res, 200, bookings);
   } catch (error) {
