@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route("/booking")
-  .get(authController.isAuthenticated, bookingController.getMyBookings);
+  .post(authController.isAuthenticated, bookingController.getMyBookings);
 
 router
   .route("/booking/:id")
