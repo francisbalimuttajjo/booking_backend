@@ -4,7 +4,7 @@
  <h6>How to use the app</h6>
  <ul><li>Visitors can view available hotels and their prices without loging in </li>
  <li>Visitors need to login to their accounts to book / review hotels </li>
- <li>Visitors can review  a particular hotel once and also rate it it </li>
+ <li>Visitors can review  a particular hotel once and also rate it  </li>
  <li>Visitors can only rate / review  only hotels  they booked  </li>
  <li>Visitors who have admin status can create/edit/delete an hotel from the database </li>
  <li>Admin can view the hotel along with all bookings associated with it and reviews while others only see reviews </li>
@@ -35,7 +35,7 @@
 </ul>
 
 # routes
-   <h4> /api/v1/hotels ,method:GET</h4>   
+   <h4> /api/v1/hotels?name=speke&loccation=kampala&price=200&range=100-300 ,method:GET</h4>   
   
     response:{"status": "success","data": {"count": number,"rows":[{...hotel},{...hotel} ,...]}}
    <h4>/api/v1/hotels ,method:POST</h4>   
