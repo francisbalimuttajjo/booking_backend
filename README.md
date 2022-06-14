@@ -35,7 +35,7 @@
 </ul>
 
 # routes
-   <h4> /api/v1/hotels?name=speke&loccation=kampala&price=200&range=100-300 ,method:GET</h4>   
+   <h4> /api/v1/hotels?name=speke&location=kampala&price=200&range=100-300 ,method:GET</h4>   
   
     response:{"status": "success","data": {"count": number,"rows":[{...hotel},{...hotel} ,...]}}
    <h4>/api/v1/hotels ,method:POST</h4>   
